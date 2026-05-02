@@ -15,7 +15,7 @@ export function FinalCta({
   heading = "Try it for 14 days. See what a real phone stack does for your answer rates.",
   sub = "Phone numbers, voice, SMS and AI on one account. Card required at sign-up — no charges during the trial.",
   primaryLabel = "Start Free Trial",
-  primaryHref = "https://www.twiching.ai/pricing",
+  primaryHref = "#",
   secondaryLabel = "Talk to sales",
   secondaryHref = "https://www.twiching.ai/contact",
 }: FinalCtaProps) {

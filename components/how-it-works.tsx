@@ -85,7 +85,7 @@ export function HowItWorks() {
 
         <div className="mt-16 text-center">
           <a
-            href="https://www.twiching.ai/pricing"
+            href="#"
             className="group inline-flex items-center gap-2 bg-black text-white text-sm font-semibold font-mono pl-6 pr-2 py-2 rounded-full hover:bg-gray-800 transition-colors"
           >
             Start Free Trial

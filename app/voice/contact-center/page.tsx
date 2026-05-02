@@ -322,7 +322,7 @@ export default function ContactCenterPage() {
               {/* CTAs */}
               <div className="flex flex-wrap items-center gap-3 mb-12">
                 <motion.a
-                  href="https://www.twiching.ai/pricing"
+                  href="#"
                   whileHover={{ y: -2 }}
                   whileTap={{ scale: 0.97 }}
                   transition={{ type: "spring", stiffness: 400, damping: 20 }}
@@ -590,7 +590,7 @@ export default function ContactCenterPage() {
           heading="See what a real contact center looks like — without the enterprise price tag."
           sub="Cloud contact center with queues, routing, recording, and supervisor tools. All plans include a 14-day free trial."
           primaryLabel="See pricing"
-          primaryHref="https://www.twiching.ai/pricing"
+          primaryHref="#"
           secondaryLabel="Talk to sales"
           secondaryHref="https://www.twiching.ai/contact"
         />

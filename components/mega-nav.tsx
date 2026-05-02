@@ -666,7 +666,7 @@ export function MegaNav() {
               Sign In
             </a>
             <a
-              href="https://www.twiching.ai/pricing"
+              href="#"
               className="block text-center py-3 text-[15px] font-semibold text-white bg-[#2563EB] rounded-full hover:bg-[#1d4ed8] transition-colors"
             >
               Start Free Trial

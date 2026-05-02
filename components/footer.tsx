@@ -7,7 +7,7 @@ const cols = [
       { label: "Voice services", href: "#" },
       { label: "Messaging", href: "#" },
       { label: "AI receptionist", href: "#" },
-      { label: "Pricing", href: "https://www.twiching.ai/pricing" },
+      { label: "Pricing", href: "#" },
     ],
   },
   {
@@ -24,7 +24,7 @@ const cols = [
     title: "Get in touch",
     links: [
       { label: "Request a Demo", href: "/contact", highlight: true },
-      { label: "Start Free Trial", href: "https://www.twiching.ai/pricing" },
+      { label: "Start Free Trial", href: "#" },
       { label: "Sales enquiries", href: "#" },
       { label: "Support", href: "#" },
       { label: "Status", href: "#" },

@@ -169,7 +169,7 @@ export function ComparisonTable() {
             Provisioning included — no per-number fees on standard numbers.
           </p>
           <a
-            href="https://www.twiching.ai/pricing"
+            href="#"
             className="group inline-flex items-center gap-2 bg-accent text-white text-[13px] font-semibold font-mono pl-5 pr-2 py-1.5 rounded-full hover:bg-[color:var(--accent-dark)] transition-colors"
           >
             See pricing

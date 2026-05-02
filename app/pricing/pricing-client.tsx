@@ -457,7 +457,7 @@ export default function PricingClient() {
               </p>
 
               <motion.a
-                href="https://www.twiching.ai/pricing"
+                href="#"
                 className={`group inline-flex items-center justify-center gap-2 text-[13px] font-semibold font-mono px-5 py-2.5 rounded-full transition-colors ${
                   plan.highlight
                     ? "bg-accent text-white hover:bg-blue-700"
@@ -657,7 +657,7 @@ export default function PricingClient() {
           </motion.p>
 
           <motion.a
-            href="https://www.twiching.ai/pricing"
+            href="#"
             className="group inline-flex items-center gap-2 bg-white text-accent text-[15px] font-semibold font-mono pl-6 pr-3 py-2.5 rounded-full"
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
