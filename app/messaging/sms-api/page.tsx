@@ -1,13 +1,22 @@
 import { Metadata } from "next"
 import { PageLayout } from "@/components/page-layout"
-import { PageHero, SectionHeading, NextStepBand } from "@/components/page-parts"
+import { PageHero, SectionHeading, ValueCard, NextStepBand, RelatedCards, StatBar, FeatureSplit, NarrativeSection, DarkBand, InlineList } from "@/components/page-parts"
 import { Faq } from "@/components/faq"
-import { Check } from "lucide-react"
+import { Check, Code2, Webhook, MessageSquare, ShieldCheck, Zap, RefreshCw } from "lucide-react"
 
 export const metadata: Metadata = {
   title: "SMS API · Developer-Friendly REST API | Twiching",
   description: "Send and receive SMS programmatically. REST API, two-way messaging, webhooks. Integrate in under a day.",
 }
+
+const VALUES = [
+  { icon: Code2, title: "REST API", body: "Standard HTTP REST endpoints — works with any language or framework. No SDK required to get started." },
+  { icon: Webhook, title: "Inbound Webhooks", body: "Receive inbound SMS to any URL. Build two-way conversations, chatbots, and reply flows without polling." },
+  { icon: MessageSquare, title: "Two-Way Messaging", body: "Send outbound and receive inbound on the same number. Handle replies, route responses, and build conversational flows." },
+  { icon: ShieldCheck, title: "10DLC Compliance", body: "Carrier registration handled automatically. Your messages clear carrier filters — no manual 10DLC navigation required." },
+  { icon: Zap, title: "Delivery Receipts", body: "Status callbacks on every message: delivered, failed, queued. Know whether each message reached its recipient." },
+  { icon: RefreshCw, title: "Test Mode", body: "Send test messages without touching real carrier routes. Validate your integration before going live." },
+]
 
 const USE_CASES = [
   { label: "OTP / 2FA", desc: "One-time passcodes and two-factor authentication flows" },
@@ -18,36 +27,58 @@ const USE_CASES = [
 ]
 
 const FAQS = [
-  { q: "What languages are the SDKs available in?", a: "REST API works with any language. Contact us for SDK availability." },
-  { q: "Is there a sandbox for testing?", a: "Yes. Test mode available without sending real messages." },
+  { q: "What languages are the SDKs available in?", a: "The REST API works with any language. Contact us for SDK availability in specific languages." },
+  { q: "Is there a sandbox for testing?", a: "Yes. Test mode is available without sending real messages — validate your integration before going live." },
   { q: "What's the rate limit?", a: "Depends on plan and carrier throughput. Contact us for high-volume requirements." },
+  { q: "How does inbound SMS work?", a: "Twiching posts inbound messages to a webhook URL you configure. No polling required — receive replies in real time." },
+  { q: "Is 10DLC compliance handled automatically?", a: "Yes. Twiching handles carrier registration so your messages clear filters. You provide the message content; we handle compliance." },
+  { q: "Can I send to international numbers?", a: "Yes. International SMS is supported with coverage across multiple regions. Contact us for destination-specific rates." },
 ]
 
 export default function SmsApiPage() {
   return (
     <PageLayout>
+
+      {/* Hero */}
       <PageHero
+        eyebrow="Messaging · SMS API"
         h1="SMS API. Integrate in under a day."
-        sub="Developer-friendly REST API for sending and receiving SMS at any scale."
+        sub="Developer-friendly REST API for sending and receiving SMS at any scale. Two-way messaging, webhooks, delivery receipts, and 10DLC compliance — all in one API."
         trustItems={["REST API", "Two-way messaging", "Webhooks", "TCR-registered"]}
         primaryCta={{ label: "Start free trial", href: "/pricing" }}
         secondaryCta={{ label: "See Bulk SMS", href: "/messaging/bulk-sms" }}
+        image={{ alt: "SMS API code editor showing REST request and delivery receipt webhook" }}
       />
 
-      <section className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-        <div className="max-w-[680px] font-mono text-[15px] text-gray-600 leading-relaxed space-y-4">
-          <p>Your product already handles email. Your users already prefer text.</p>
-          <p>The Twiching SMS API puts two-way messaging into your application with a standard REST call — no carrier agreements, no 10DLC navigation, no per-message compliance overhead.</p>
+      {/* Stats bar */}
+      <StatBar stats={[
+        { value: "REST", label: "API standard", note: "any language or framework" },
+        { value: "<1 day", label: "Integration time", note: "first message in hours" },
+        { value: "2-Way", label: "Messaging", note: "send and receive on one number" },
+        { value: "Auto", label: "10DLC compliance", note: "carrier registration handled" },
+      ]} />
+
+      {/* Narrative opener — preserved from original */}
+      <NarrativeSection paragraphs={[
+        "Your product already handles email. Your users already prefer text.",
+        "The Twiching SMS API puts two-way messaging into your application with a standard REST call — no carrier agreements, no 10DLC navigation, no per-message compliance overhead.",
+      ]} />
+
+      {/* Value cards */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {VALUES.map((v) => <ValueCard key={v.title} icon={v.icon} title={v.title} body={v.body} />)}
         </div>
       </section>
 
-      <section className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-gray-100">
+      {/* Use cases + code block — preserved from original */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-100">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           <div>
             <SectionHeading eyebrow="API features" h2="What you can build" />
-            <div className="space-y-3">
+            <div className="space-y-3 mt-2">
               {USE_CASES.map(({ label, desc }) => (
-                <div key={label} className="p-5 rounded-xl border border-gray-100 bg-white">
+                <div key={label} className="p-5 rounded-xl border border-gray-100 bg-white hover:shadow-md hover:border-blue-100 transition-all">
                   <p className="font-mono font-bold text-[13px] text-gray-900 mb-1">{label}</p>
                   <p className="font-mono text-[12px] text-gray-500">{desc}</p>
                 </div>
@@ -84,8 +115,102 @@ export default function SmsApiPage() {
         </div>
       </section>
 
-      <Faq />
+      {/* Feature split 1 — Two-way messaging + webhooks */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-100">
+        <FeatureSplit
+          eyebrow="Two-way messaging"
+          heading="Send outbound. Receive inbound. On the same number."
+          body="Twiching posts inbound SMS replies to a webhook URL you define — no polling, no long-running connections. Build reply flows, chatbots, confirmation prompts, and survey responses in your own application logic."
+          points={[
+            "Inbound messages delivered via webhook — real-time, no polling",
+            "Send and receive on the same phone number",
+            "Route replies to different URLs by keyword or sender",
+            "Build conversational flows, OTP confirmations, or survey bots",
+          ]}
+          cta={{ label: "Start free trial", href: "/pricing" }}
+          image={{ alt: "Two-way SMS API flow diagram showing outbound send and inbound webhook receipt" }}
+        />
+      </section>
+
+      {/* Feature split 2 — Delivery receipts + compliance (reversed) */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-100">
+        <FeatureSplit
+          eyebrow="Delivery & compliance"
+          heading="Know what delivered. Stay compliant without the overhead."
+          body="Every message sends back a delivery receipt — delivered, failed, or queued — so your application logic can react to status. 10DLC carrier registration is handled automatically; you write the message, Twiching clears the filters."
+          points={[
+            "Delivery status callbacks on every message",
+            "10DLC brand and campaign registration — automatic",
+            "STOP/HELP opt-out compliance built into the API",
+            "Test mode — validate integration without real carrier sends",
+          ]}
+          image={{ alt: "SMS delivery receipt dashboard showing per-message status and 10DLC compliance indicators" }}
+          reverse
+        />
+      </section>
+
+      {/* Inline checklist — full capabilities */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-100">
+        <SectionHeading eyebrow="Full capabilities" h2="Everything in the Twiching SMS API" />
+        <InlineList
+          items={[
+            "REST API — standard HTTP, any language or framework",
+            "Send outbound SMS to any phone number",
+            "Receive inbound SMS via webhook — no polling",
+            "Two-way messaging on a single number",
+            "Delivery receipts and status callbacks per message",
+            "10DLC brand and campaign registration — handled automatically",
+            "STOP / HELP opt-out compliance built in",
+            "Test mode for integration validation without live sends",
+            "International SMS across multiple regions",
+            "High-throughput volume — contact us for rate limits",
+          ]}
+          image={{ alt: "SMS API full capabilities overview in Twiching developer dashboard" }}
+        />
+      </section>
+
+      {/* Dark band */}
+      <DarkBand>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <p className="text-[11px] font-mono font-bold tracking-[2px] uppercase text-gray-500 mb-3">Built for developers</p>
+            <h2 className="text-3xl sm:text-4xl font-semibold text-white tracking-tight text-balance leading-tight mb-5">
+              One API call.<br />SMS in your product.
+            </h2>
+            <p className="text-base text-gray-400 leading-relaxed max-w-lg">
+              The Twiching SMS API is designed to be integrated in hours, not weeks. Standard REST, webhooks for replies, delivery receipts for status — and no carrier agreements or 10DLC paperwork to file before you can send your first message.
+            </p>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            {[
+              { label: "REST", note: "Standard HTTP API" },
+              { label: "Webhooks", note: "Real-time inbound delivery" },
+              { label: "Receipts", note: "Per-message status callbacks" },
+              { label: "10DLC", note: "Compliance auto-handled" },
+            ].map(({ label, note }) => (
+              <div key={label} className="p-5 rounded-xl border border-white/10 bg-white/5">
+                <p className="font-mono font-bold text-[18px] text-white mb-1">{label}</p>
+                <p className="font-mono text-[11px] text-gray-500">{note}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </DarkBand>
+
+      <Faq items={FAQS} heading="SMS API FAQ" />
+
+      <RelatedCards
+        heading="Related products"
+        cards={[
+          { title: "Bulk SMS", desc: "Send campaign-scale SMS without writing code.", href: "/messaging/bulk-sms" },
+          { title: "SMS Gateway", desc: "High-throughput gateway for platforms and resellers.", href: "/messaging/sms-gateway" },
+          { title: "Conversation Intelligence", desc: "Analyze SMS conversations alongside call transcripts.", href: "/features/conv-intelligence" },
+        ]}
+      />
+
       <NextStepBand
+        heading="Put SMS in your product today."
+        sub="REST API. Two-way messaging. 10DLC handled. 14-day free trial."
         primary={{ label: "Start free trial", href: "/pricing" }}
         secondary={{ label: "See Bulk SMS", href: "/messaging/bulk-sms" }}
       />

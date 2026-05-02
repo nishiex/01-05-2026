@@ -5,7 +5,7 @@ import { motion, useInView } from "framer-motion"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { PageLayout } from "@/components/page-layout"
-import { PageHero, SectionHeading, NextStepBand, RelatedCards } from "@/components/page-parts"
+import { PageHero, SectionHeading, NextStepBand, RelatedCards, InlineList, DarkBand } from "@/components/page-parts"
 import { Faq } from "@/components/faq"
 import { Users, Phone, BarChart2, MessageSquare, Zap, Target, TrendingUp, Clock, CheckCircle } from "lucide-react"
 
@@ -105,7 +105,7 @@ function UseCaseCard({
   )
 }
 
-function StatBar() {
+function AnimatedStatBar() {
   return (
     <section className="bg-gray-950 py-14">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -129,7 +129,7 @@ function StatBar() {
   )
 }
 
-function FeatureSplit({
+function AnimatedFeatureSplit({
   eyebrow,
   heading,
   body,
@@ -224,7 +224,6 @@ function NarrativeSection() {
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function SalesPage() {
-  // ref for GSAP heading slide-in
   const useCasesRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
@@ -262,6 +261,7 @@ export default function SalesPage() {
         trustItems={["Local presence", "Auto dialers", "CRM integration", "Live coaching"]}
         primaryCta={{ label: "Start Free Trial", href: "/pricing" }}
         secondaryCta={{ label: "Talk to sales", href: "/contact" }}
+        image={{ alt: "Sales team dashboard showing local presence dialing, call analytics, and CRM sync" }}
       />
 
       {/* Value cards */}
@@ -273,11 +273,11 @@ export default function SalesPage() {
         </div>
       </section>
 
-      {/* Stats bar */}
-      <StatBar />
+      {/* Animated stats bar */}
+      <AnimatedStatBar />
 
-      {/* Feature split 1 */}
-      <FeatureSplit
+      {/* Feature splits */}
+      <AnimatedFeatureSplit
         eyebrow="Local presence"
         heading="Answer rates that change the game"
         body="Your reps are calling real prospects. Make sure those calls get picked up. Local presence dialing shows the right area code on every outbound call."
@@ -289,8 +289,7 @@ export default function SalesPage() {
         ]}
       />
 
-      {/* Feature split 2 */}
-      <FeatureSplit
+      <AnimatedFeatureSplit
         eyebrow="Supervisor tools"
         heading="Coach your team in the moment, not after"
         body="The best coaching happens live. Listen in, whisper guidance only the rep hears, or jump in directly when a deal is on the line."
@@ -318,6 +317,53 @@ export default function SalesPage() {
           ))}
         </div>
       </section>
+
+      {/* Inline checklist */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-100">
+        <SectionHeading eyebrow="Full capabilities" h2="Everything a sales team needs on the phones" />
+        <InlineList
+          items={[
+            "Local presence dialing — auto-matches area code to prospect region",
+            "Power and predictive auto dialers — maximize talk time",
+            "Salesforce, HubSpot, and Zoho CRM integration",
+            "Automatic call and SMS logging to CRM — zero manual entry",
+            "SMS follow-up sequences after calls and demos",
+            "Live call monitoring — silent, whisper, and barge",
+            "Per-rep scorecards: calls, connect rate, conversion, AHT",
+            "Post-call recording review with timestamps",
+            "Territory number assignment for local brand consistency",
+          ]}
+          image={{ alt: "Sales team capabilities overview in Twiching — local presence, dialer, CRM, coaching" }}
+        />
+      </section>
+
+      {/* Dark band */}
+      <DarkBand>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <p className="text-[11px] font-mono font-bold tracking-[2px] uppercase text-gray-500 mb-3">Built for inside sales teams</p>
+            <h2 className="text-3xl sm:text-4xl font-semibold text-white tracking-tight text-balance leading-tight mb-5">
+              4× answer rate.<br />40% more talk time.<br />3× faster ramp.
+            </h2>
+            <p className="text-base text-gray-400 leading-relaxed max-w-lg">
+              Local presence gets the call answered. Auto dialers keep reps dialing. Whisper coaching builds better reps faster. CRM sync kills manual data entry. Twiching is the phone stack built specifically for the phones.
+            </p>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            {[
+              { label: "4×", note: "Answer rate with local presence" },
+              { label: "40%", note: "More talk time, auto dialers" },
+              { label: "3×", note: "Faster ramp, whisper coaching" },
+              { label: "60%", note: "Less time on CRM entry" },
+            ].map(({ label, note }) => (
+              <div key={label} className="p-5 rounded-xl border border-white/10 bg-white/5">
+                <p className="font-mono font-bold text-[22px] text-white mb-1">{label}</p>
+                <p className="font-mono text-[11px] text-gray-500">{note}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </DarkBand>
 
       <Faq items={FAQS} heading="Sales team communications FAQ" />
 

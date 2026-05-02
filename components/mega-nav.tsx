@@ -30,7 +30,6 @@ const voiceCol1 = [
   { title: "SIP Termination", desc: "Secure SIP-based routing.", Icon: Network, href: "/voice/sip-termination" },
   { title: "VoIP Wholesaler", desc: "Scalable wholesale voice.", Icon: Building2, href: "/voice/voip-wholesale" },
   { title: "Contact Center", desc: "Customer interaction tools.", Icon: Headphones, href: "/voice/contact-center" },
-  { title: "Call Termination", desc: "Reliable worldwide routing.", Icon: PhoneForwarded, href: "/voice/call-termination" },
 ]
 const voiceFeatures = [
   { title: "Auto-Attendant", Icon: Shuffle, href: "/features/auto-attendant" },

@@ -263,6 +263,82 @@ export default function SipTerminationPage() {
           </div>
         </section>
 
+        {/* ── ENCRYPTION SPLIT ─────────────────────────────────── */}
+        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+              {/* Text side */}
+              <div>
+                <p className="text-[10px] font-mono font-bold tracking-[2px] uppercase text-accent mb-3">Security</p>
+                <h2 className="font-serif text-[32px] sm:text-[38px] font-bold text-gray-900 mb-5 text-balance leading-tight">
+                  TLS + SRTP: every call encrypted, end to end.
+                </h2>
+                <p className="text-[14px] text-gray-500 font-mono leading-relaxed mb-8">
+                  Unencrypted SIP is a liability. Twiching authenticates and encrypts every leg of every call — transport layer and media — so nothing travels in plaintext between your PBX and the carrier network.
+                </p>
+                <ul className="space-y-3 mb-8">
+                  {[
+                    "TLS 1.2 / 1.3 on all SIP signaling channels",
+                    "SRTP for end-to-end media encryption",
+                    "SIP Digest Auth or IP whitelist — your choice",
+                    "No plaintext SIP. No unprotected RTP media streams",
+                  ].map((item) => (
+                    <li key={item} className="flex items-start gap-2.5 text-[13px] font-mono text-gray-700">
+                      <CheckCircle2 className="h-4 w-4 text-accent flex-shrink-0 mt-0.5" strokeWidth={2} />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  href="https://www.twiching.ai/contact"
+                  className="inline-flex items-center gap-2 bg-accent text-white text-[14px] font-semibold font-mono px-6 py-2.5 rounded-full hover:bg-blue-700 transition-colors"
+                >
+                  Talk to us about security
+                  <ArrowRight className="h-4 w-4" strokeWidth={2.2} />
+                </a>
+              </div>
+
+              {/* Image side */}
+              <div className="relative">
+                <div className="aspect-[4/3] rounded-3xl bg-gray-100 ring-1 ring-gray-200/80 overflow-hidden flex items-center justify-center">
+                  <div className="w-full h-full bg-gradient-to-br from-blue-50 via-white to-gray-100 flex flex-col items-center justify-center gap-6 p-10">
+                    <div className="flex items-center gap-4">
+                      <div className="w-16 h-16 rounded-2xl bg-white ring-1 ring-gray-200 shadow-sm grid place-items-center">
+                        <Server className="h-7 w-7 text-gray-400" strokeWidth={1.5} />
+                      </div>
+                      <div className="flex flex-col gap-1">
+                        <div className="h-[2px] w-20 bg-accent rounded-full" />
+                        <div className="text-[9px] font-mono font-bold text-accent tracking-widest uppercase">TLS 1.3</div>
+                        <div className="h-[2px] w-20 bg-blue-300 rounded-full" />
+                      </div>
+                      <div className="w-16 h-16 rounded-2xl bg-accent shadow-[0_0_30px_rgba(37,99,235,0.35)] grid place-items-center">
+                        <Lock className="h-7 w-7 text-white" strokeWidth={1.5} />
+                      </div>
+                      <div className="flex flex-col gap-1">
+                        <div className="h-[2px] w-20 bg-emerald-500 rounded-full" />
+                        <div className="text-[9px] font-mono font-bold text-emerald-600 tracking-widest uppercase">SRTP</div>
+                        <div className="h-[2px] w-20 bg-emerald-300 rounded-full" />
+                      </div>
+                      <div className="w-16 h-16 rounded-2xl bg-white ring-1 ring-gray-200 shadow-sm grid place-items-center">
+                        <Globe className="h-7 w-7 text-gray-400" strokeWidth={1.5} />
+                      </div>
+                    </div>
+                    <div className="flex gap-3">
+                      {["TLS 1.3", "SRTP", "Digest Auth"].map((tag) => (
+                        <span key={tag} className="px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-[10px] font-mono font-bold text-accent">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    <p className="text-[10px] font-mono text-gray-400 text-center">TLS + SRTP encrypted call delivery diagram</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* ── CODEC TABLE ──────────────────────────────────────── */}
         <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
           <div className="max-w-7xl mx-auto">
@@ -330,6 +406,61 @@ export default function SipTerminationPage() {
           </div>
         </section>
 
+        {/* ── PROVISIONING SPLIT (dark, reversed) ──────────────── */}
+        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-950 text-white">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+              {/* Image side (left on desktop) */}
+              <div className="relative order-2 lg:order-1">
+                <div className="aspect-[4/3] rounded-3xl bg-white/5 ring-1 ring-white/10 overflow-hidden flex items-center justify-center">
+                  <div className="w-full h-full flex flex-col items-center justify-center gap-5 p-10">
+                    {/* Simulated config block */}
+                    <div className="w-full max-w-xs rounded-2xl bg-gray-900 ring-1 ring-white/10 p-5 font-mono text-[11px] leading-relaxed">
+                      <p className="text-gray-500 mb-2">{`; sip.conf — Twiching trunk`}</p>
+                      <p><span className="text-blue-400">[twiching-trunk]</span></p>
+                      <p><span className="text-gray-400">type</span>=<span className="text-emerald-400">peer</span></p>
+                      <p><span className="text-gray-400">host</span>=<span className="text-emerald-400">sip.twiching.ai</span></p>
+                      <p><span className="text-gray-400">transport</span>=<span className="text-emerald-400">tls</span></p>
+                      <p><span className="text-gray-400">encryption</span>=<span className="text-emerald-400">yes</span></p>
+                      <p><span className="text-gray-400">qualify</span>=<span className="text-emerald-400">yes</span></p>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <CheckCircle2 className="h-4 w-4 text-emerald-400" strokeWidth={2} />
+                      <span className="text-[11px] font-mono text-gray-400">One config block. Carrier-grade calling active.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Text side (right on desktop) */}
+              <div className="order-1 lg:order-2">
+                <p className="text-[10px] font-mono font-bold tracking-[2px] uppercase text-blue-400 mb-3">Setup</p>
+                <h2 className="font-serif text-[32px] sm:text-[38px] font-bold text-white mb-5 text-balance leading-tight">
+                  One config change. No rip-and-replace.
+                </h2>
+                <p className="text-[14px] text-gray-400 font-mono leading-relaxed mb-8">
+                  If your team already runs SIP, switching to Twiching is a single config file edit — not a six-week migration. Update your outbound SIP host, enable TLS, and your existing PBX is on Twiching&apos;s carrier network.
+                </p>
+                <ul className="space-y-4">
+                  {[
+                    { step: "01", label: "Update your SIP trunk host to sip.twiching.ai" },
+                    { step: "02", label: "Enable TLS transport and SRTP encryption" },
+                    { step: "03", label: "Provision credentials or whitelist your IP" },
+                    { step: "04", label: "Make a test call — carrier-grade from minute one" },
+                  ].map(({ step, label }) => (
+                    <li key={step} className="flex items-start gap-4">
+                      <span className="text-[11px] font-mono font-bold text-blue-500 tracking-widest mt-0.5">{step}</span>
+                      <span className="text-[13px] font-mono text-gray-300 leading-relaxed">{label}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
         {/* ── WHO USES SIP ─────────────────────────────────────── */}
         <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
           <div className="max-w-7xl mx-auto">
@@ -353,6 +484,65 @@ export default function SipTerminationPage() {
                   <p className="text-[13px] text-gray-500 font-mono leading-relaxed">{body}</p>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── FULL CAPABILITIES SPLIT ──────────────────────────── */}
+        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+              {/* Checklist side */}
+              <div>
+                <p className="text-[10px] font-mono font-bold tracking-[2px] uppercase text-accent mb-3">Full capabilities</p>
+                <h2 className="font-serif text-[32px] sm:text-[38px] font-bold text-gray-900 mb-6 text-balance leading-tight">
+                  Everything included in Twiching SIP termination.
+                </h2>
+                <ul className="space-y-3">
+                  {[
+                    "Carrier-grade SIP termination — 99.999% uptime SLA",
+                    "TLS 1.2 / 1.3 on all signaling channels",
+                    "SRTP media encryption — no plaintext RTP",
+                    "Redundant SIP paths with automatic failover",
+                    "G.711 μ-law / a-law, G.729, Opus codec support",
+                    "Compatible with Asterisk, FreePBX, 3CX, Cisco, Avaya",
+                    "IP whitelist or SIP Digest authentication",
+                    "Global reach — Tier-1 routes to 190+ countries",
+                    "Wholesale volumes available — rate sheets on request",
+                  ].map((item) => (
+                    <li key={item} className="flex items-start gap-2.5 text-[13px] font-mono text-gray-700">
+                      <CheckCircle2 className="h-4 w-4 text-accent flex-shrink-0 mt-0.5" strokeWidth={2} />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Image side */}
+              <div>
+                <div className="aspect-[4/3] rounded-3xl bg-white ring-1 ring-gray-200/80 overflow-hidden flex items-center justify-center">
+                  <div className="w-full h-full bg-gradient-to-br from-gray-50 via-white to-blue-50/30 flex flex-col items-center justify-center gap-5 p-10">
+                    {/* Uptime / stats visual */}
+                    <div className="w-full max-w-xs space-y-3">
+                      {[
+                        { label: "Uptime SLA", value: "99.999%", color: "bg-emerald-500" },
+                        { label: "Countries covered", value: "190+", color: "bg-accent" },
+                        { label: "Failover routes", value: "Redundant", color: "bg-blue-400" },
+                        { label: "Encryption", value: "TLS + SRTP", color: "bg-violet-500" },
+                      ].map(({ label, value, color }) => (
+                        <div key={label} className="flex items-center gap-3 rounded-xl bg-white ring-1 ring-gray-200 px-4 py-3 shadow-sm">
+                          <div className={`w-2 h-2 rounded-full ${color} flex-shrink-0`} />
+                          <span className="text-[11px] font-mono text-gray-500 flex-1">{label}</span>
+                          <span className="text-[12px] font-mono font-bold text-gray-900">{value}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <p className="text-[10px] font-mono text-gray-400 text-center">Twiching SIP termination capabilities at a glance</p>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </section>

@@ -1,6 +1,6 @@
 import { Metadata } from "next"
 import { PageLayout } from "@/components/page-layout"
-import { PageHero, SectionHeading, ValueCard, NextStepBand, RelatedCards } from "@/components/page-parts"
+import { PageHero, SectionHeading, ValueCard, NextStepBand, RelatedCards, StatBar, FeatureSplit, NarrativeSection, DarkBand, InlineList } from "@/components/page-parts"
 import { Faq } from "@/components/faq"
 import { Shuffle, Clock, Phone, GitBranch, Globe, Settings } from "lucide-react"
 
@@ -29,6 +29,7 @@ const FAQS = [
 export default function AutoAttendantPage() {
   return (
     <PageLayout>
+      {/* Hero — with image placeholder on the right */}
       <PageHero
         eyebrow="Features · Auto-Attendant"
         h1="Route every call to the right person, automatically"
@@ -36,14 +37,65 @@ export default function AutoAttendantPage() {
         trustItems={["Unlimited levels", "No-code builder", "Business hours routing", "Included on all plans"]}
         primaryCta={{ label: "Start Free Trial", href: "/pricing" }}
         secondaryCta={{ label: "See all features", href: "/pricing" }}
+        image={{ alt: "Auto-attendant flow builder dashboard" }}
       />
 
+      {/* Stats bar */}
+      <StatBar stats={[
+        { value: "∞", label: "Menu levels", note: "no nesting limit" },
+        { value: "24/7", label: "Always routing", note: "after-hours flows included" },
+        { value: "< 1s", label: "Routing time", note: "zero hold music" },
+        { value: "All plans", label: "Included", note: "from Starter upward" },
+      ]} />
+
+      {/* Narrative opener */}
+      <NarrativeSection paragraphs={[
+        "Most small businesses lose 30% of inbound calls to voicemail or the wrong person. Your auto-attendant fixes that from day one.",
+        "With Twiching's multi-level IVR, every caller hears a professional greeting, navigates to the right team in seconds, and never hits a dead end — whether you have 2 employees or 200.",
+      ]} />
+
+      {/* Value cards */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {VALUES.map((v) => <ValueCard key={v.title} icon={v.icon} title={v.title} body={v.body} />)}
         </div>
       </section>
 
+      {/* Feature split 1 — No-code builder */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-100">
+        <FeatureSplit
+          eyebrow="No-code builder"
+          heading="Build your entire call flow without writing a line of code"
+          body="Drag destinations onto a canvas, assign keypresses, preview the caller experience, and publish — all from your browser. Changes are live in under a minute."
+          points={[
+            "Drag-and-drop menu builder with live preview",
+            "Assign any keypress (0–9, *, #) to any destination",
+            "Nested submenus with unlimited depth",
+            "Test your flow before publishing",
+          ]}
+          cta={{ label: "Start building free", href: "/pricing" }}
+          image={{ alt: "Twiching no-code IVR flow builder interface" }}
+        />
+      </section>
+
+      {/* Feature split 2 — Business hours routing (reversed) */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-100">
+        <FeatureSplit
+          eyebrow="Business hours routing"
+          heading="Never miss a call — even when your office is closed"
+          body="Define your schedule once. Calls during business hours go to your team; after-hours calls follow a completely separate flow you control — voicemail, on-call forwarding, or a custom message."
+          points={[
+            "Per-day schedule with custom open and close times",
+            "Separate after-hours call flow",
+            "Holiday overrides — set it and forget it",
+            "Instant toggle to close early or open late",
+          ]}
+          image={{ alt: "Business hours scheduling settings in Twiching dashboard" }}
+          reverse
+        />
+      </section>
+
+      {/* How it works — 3 steps */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-100">
         <SectionHeading eyebrow="How it works" h2="Set up your auto-attendant in three steps" />
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-2">
@@ -61,6 +113,24 @@ export default function AutoAttendantPage() {
         </div>
       </section>
 
+      {/* Inline checklist + image — works with any plan */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-100">
+        <SectionHeading eyebrow="Works out of the box" h2="Everything included. No add-ons required." />
+        <InlineList
+          items={[
+            "Included on every plan — Starter, Professional, and Enterprise",
+            "No per-minute charges for IVR routing",
+            "Unlimited extensions and ring groups",
+            "Works with mobile apps — manage your flow on the go",
+            "CRM call logging still applies to all routed calls",
+            "STIR/SHAKEN and HIPAA compliance built in",
+          ]}
+          image={{ alt: "Twiching plan comparison showing IVR included on all tiers" }}
+        />
+      </section>
+
+      {/* Animated IVR flow demo */}
+      
       <Faq items={FAQS} heading="Auto-Attendant FAQ" />
 
       <RelatedCards

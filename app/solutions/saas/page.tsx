@@ -1,7 +1,7 @@
 "use client"
 
 import { PageLayout } from "@/components/page-layout"
-import { PageHero, SectionHeading, ValueCard, NextStepBand, RelatedCards } from "@/components/page-parts"
+import { PageHero, SectionHeading, ValueCard, NextStepBand, RelatedCards, StatBar, FeatureSplit, NarrativeSection, DarkBand, InlineList } from "@/components/page-parts"
 import { Faq } from "@/components/faq"
 import { Headphones, Phone, MessageSquare, BarChart2, Clock, Workflow } from "lucide-react"
 
@@ -31,8 +31,24 @@ export default function SupportPage() {
         trustItems={["Omnichannel", "IVR routing", "Live analytics", "Automation"]}
         primaryCta={{ label: "Start Free Trial", href: "/pricing" }}
         secondaryCta={{ label: "Talk to sales", href: "/contact" }}
+        image={{ alt: "Customer support team dashboard showing omnichannel inbox and live agent analytics" }}
       />
 
+      {/* Stats bar */}
+      <StatBar stats={[
+        { value: "4 channels", label: "Omnichannel support", note: "calls, SMS, WhatsApp, chat" },
+        { value: "Real-time", label: "Agent analytics", note: "live dashboards, no delay" },
+        { value: "24/7", label: "Availability", note: "queues, voicemail, auto-responses" },
+        { value: "No-code", label: "IVR builder", note: "routing flows without engineering" },
+      ]} />
+
+      {/* Narrative */}
+      <NarrativeSection paragraphs={[
+        "A customer submits a support ticket, sends a follow-up SMS, then calls your main line. Three different channels, three different queues, no shared context.",
+        "Twiching puts every channel into one inbox — so the agent who picks up the call already sees the ticket and the SMS thread. No asking the customer to repeat themselves.",
+      ]} />
+
+      {/* Value cards */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {VALUES.map((v) => (
@@ -41,6 +57,41 @@ export default function SupportPage() {
         </div>
       </section>
 
+      {/* Feature split 1 — Smart routing + omnichannel */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-100">
+        <FeatureSplit
+          eyebrow="Smart routing"
+          heading="Every customer reaches the right agent, first time."
+          body="Twiching's IVR and skills-based routing reads caller history, account tier, and IVR selections to connect each customer to the best available agent. No transfers. No re-explaining. First-call resolution improves immediately."
+          points={[
+            "Skills-based routing — match caller needs to agent expertise",
+            "Priority routing for VIP accounts and high-tier customers",
+            "IVR handles FAQs and order status automatically",
+            "Overflow routing when all agents are busy — no abandoned calls",
+          ]}
+          cta={{ label: "Start Free Trial", href: "/pricing" }}
+          image={{ alt: "Smart call routing configuration showing skills-based routing rules and IVR flow" }}
+        />
+      </section>
+
+      {/* Feature split 2 — Analytics + team performance (reversed) */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-100">
+        <FeatureSplit
+          eyebrow="Live analytics"
+          heading="See every queue, every agent, every metric — live."
+          body="Supervisor wallboards update in real time — queue depth, average wait time, agent status, and CSAT scores on one screen. Spot a spike in volume before it becomes a missed SLA. Coach the agent who needs it before the call ends."
+          points={[
+            "Real-time wallboards: queue depth, AHT, agent status",
+            "Per-agent scorecards: CSAT, FCR, call volume, handle time",
+            "Threshold alerts via SMS or email when KPIs breach limits",
+            "Historical reporting for weekly and monthly reviews",
+          ]}
+          image={{ alt: "Supervisor wallboard showing real-time queue metrics and agent performance scores" }}
+          reverse
+        />
+      </section>
+
+      {/* Use cases */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-100">
         <SectionHeading eyebrow="Use cases" h2="How support teams use Twiching" />
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-2">
@@ -59,6 +110,53 @@ export default function SupportPage() {
           ))}
         </div>
       </section>
+
+      {/* Inline checklist */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-100">
+        <SectionHeading eyebrow="Full capabilities" h2="Everything a modern support team needs" />
+        <InlineList
+          items={[
+            "Omnichannel inbox: calls, SMS, WhatsApp, and chat unified",
+            "Skills-based and priority call routing",
+            "No-code IVR builder for self-service and routing flows",
+            "Shared team inbox with internal notes and assignments",
+            "Real-time wallboards and live agent status",
+            "Per-agent scorecards: CSAT, FCR, AHT, call volume",
+            "Supervisor monitoring, whisper coaching, and call barge",
+            "Threshold alerts via SMS or email",
+            "24/7 availability via queues, voicemail, and auto-responses",
+          ]}
+          image={{ alt: "Customer support capabilities overview in Twiching" }}
+        />
+      </section>
+
+      {/* Dark band */}
+      <DarkBand>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <p className="text-[11px] font-mono font-bold tracking-[2px] uppercase text-gray-500 mb-3">Built for support teams that scale</p>
+            <h2 className="text-3xl sm:text-4xl font-semibold text-white tracking-tight text-balance leading-tight mb-5">
+              Every channel. One inbox.<br />Zero repeat conversations.
+            </h2>
+            <p className="text-base text-gray-400 leading-relaxed max-w-lg">
+              The best support teams don't make customers repeat themselves. Twiching unifies every channel — calls, SMS, WhatsApp, chat — in one inbox, with the full conversation history visible before the agent says hello.
+            </p>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            {[
+              { label: "Omnichannel", note: "All channels, one inbox" },
+              { label: "Live", note: "Real-time dashboards" },
+              { label: "24/7", note: "Queues and auto-responses" },
+              { label: "No-code", note: "IVR and routing builder" },
+            ].map(({ label, note }) => (
+              <div key={label} className="p-5 rounded-xl border border-white/10 bg-white/5">
+                <p className="font-mono font-bold text-[16px] text-white mb-1">{label}</p>
+                <p className="font-mono text-[11px] text-gray-500">{note}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </DarkBand>
 
       <Faq items={FAQS} heading="Customer support FAQ" />
 

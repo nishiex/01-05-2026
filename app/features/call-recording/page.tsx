@@ -1,6 +1,6 @@
 import { Metadata } from "next"
 import { PageLayout } from "@/components/page-layout"
-import { PageHero, SectionHeading, ValueCard, NextStepBand, RelatedCards } from "@/components/page-parts"
+import { PageHero, SectionHeading, ValueCard, NextStepBand, RelatedCards, StatBar, FeatureSplit, NarrativeSection, DarkBand, InlineList } from "@/components/page-parts"
 import { Faq } from "@/components/faq"
 import { Mic, Shield, Download, Search, Clock, Bell } from "lucide-react"
 
@@ -29,6 +29,8 @@ const FAQS = [
 export default function CallRecordingPage() {
   return (
     <PageLayout>
+
+      {/* Hero — image placeholder right column */}
       <PageHero
         eyebrow="Features · Call Recording"
         h1="Record every call. Review any moment."
@@ -36,14 +38,65 @@ export default function CallRecordingPage() {
         trustItems={["AES-256 encryption", "Auto-transcription", "Bulk export", "Configurable retention"]}
         primaryCta={{ label: "Start Free Trial", href: "/pricing" }}
         secondaryCta={{ label: "See pricing", href: "/pricing" }}
+        image={{ alt: "Call recording dashboard showing waveform and transcript" }}
       />
 
+      {/* Stats bar */}
+      <StatBar stats={[
+        { value: "AES-256", label: "Encryption at rest", note: "TLS 1.3 in transit" },
+        { value: "30d–7yr", label: "Retention range", note: "configurable per policy" },
+        { value: "100%", label: "Auto-transcribed", note: "every recorded call" },
+        { value: "Pro+", label: "Plan availability", note: "30-day · Enterprise 1-year" },
+      ]} />
+
+      {/* Narrative opener */}
+      <NarrativeSection paragraphs={[
+        "A single disputed call costs more to resolve than an entire year of recording storage. Twiching captures everything — automatically.",
+        "Whether you're satisfying a regulator, coaching a new rep, or defending a chargeback, the recording is already there. Encrypted, transcribed, and searchable from day one.",
+      ]} />
+
+      {/* Value cards */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {VALUES.map((v) => <ValueCard key={v.title} icon={v.icon} title={v.title} body={v.body} />)}
         </div>
       </section>
 
+      {/* Feature split 1 — Searchable transcripts */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-100">
+        <FeatureSplit
+          eyebrow="Searchable transcripts"
+          heading="Find any moment in any call — instantly"
+          body="Every recording is automatically transcribed as it finishes. Search across your entire call library by keyword, agent name, date range, or caller ID. No manual scrubbing."
+          points={[
+            "Full-text search across all transcripts",
+            "Jump directly to the timestamp of a keyword match",
+            "Filter by agent, team, direction, or date",
+            "Export transcripts alongside recordings for audits",
+          ]}
+          cta={{ label: "See it in action", href: "/pricing" }}
+          image={{ alt: "Transcript search interface with keyword highlighting" }}
+        />
+      </section>
+
+      {/* Feature split 2 — Compliance & retention (reversed) */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-100">
+        <FeatureSplit
+          eyebrow="Compliance & retention"
+          heading="Storage policies that match your regulatory requirements"
+          body="Set retention windows from 30 days to 7 years per team or call type. Recordings auto-delete at expiry — no manual cleanup, no compliance gaps, no runaway storage costs."
+          points={[
+            "Per-team and per-call-type retention policies",
+            "Auto-delete at retention window expiry",
+            "Geographically redundant encrypted cloud storage",
+            "HIPAA, GDPR, FINRA, and SOC 2 ready",
+          ]}
+          image={{ alt: "Retention policy configuration screen in Twiching" }}
+          reverse
+        />
+      </section>
+
+      {/* Use cases grid */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-100">
         <SectionHeading eyebrow="Common use cases" h2="Why teams record their calls" />
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-2">
@@ -62,6 +115,52 @@ export default function CallRecordingPage() {
           ))}
         </div>
       </section>
+
+      {/* Inline checklist + image — what's included */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-100">
+        <SectionHeading eyebrow="What's included" h2="Everything you need for a compliant recording program" />
+        <InlineList
+          items={[
+            "Automatic recording — no agent action needed",
+            "Inbound, outbound, or both directions configurable",
+            "Compliant caller disclosure message (customizable)",
+            "AES-256 encryption at rest, TLS 1.3 in transit",
+            "Full-text search across all transcripts",
+            "Bulk ZIP + CSV export for regulatory submissions",
+            "Keyword flagging for supervisor review queue",
+            "Retention from 30 days (Professional) to 1 year (Enterprise)",
+          ]}
+          image={{ alt: "Call recording feature summary in Twiching dashboard" }}
+        />
+      </section>
+
+      {/* Dark band — compliance reassurance */}
+      <DarkBand>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <p className="text-[11px] font-mono font-bold tracking-[2px] uppercase text-gray-500 mb-3">Built for regulated industries</p>
+            <h2 className="text-3xl sm:text-4xl font-semibold text-white tracking-tight text-balance leading-tight mb-5">
+              HIPAA. GDPR. FINRA. SOC 2.<br />We handle the compliance burden.
+            </h2>
+            <p className="text-base text-gray-400 leading-relaxed max-w-lg">
+              Twiching's recording infrastructure was designed with regulated industries in mind. Encrypted storage, configurable retention, audit-ready exports, and caller disclosure — all standard, none optional.
+            </p>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            {[
+              { label: "HIPAA", note: "Healthcare call compliance" },
+              { label: "GDPR", note: "EU data retention rules" },
+              { label: "FINRA", note: "Financial services recording" },
+              { label: "SOC 2", note: "Enterprise security audit" },
+            ].map(({ label, note }) => (
+              <div key={label} className="p-5 rounded-xl border border-white/10 bg-white/5">
+                <p className="font-mono font-bold text-[18px] text-white mb-1">{label}</p>
+                <p className="font-mono text-[11px] text-gray-500">{note}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </DarkBand>
 
       <Faq items={FAQS} heading="Call Recording FAQ" />
 

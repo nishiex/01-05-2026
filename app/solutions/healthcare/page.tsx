@@ -1,10 +1,9 @@
 "use client"
 
 import { PageLayout } from "@/components/page-layout"
-import { PageHero, SectionHeading, ValueCard, NextStepBand, RelatedCards } from "@/components/page-parts"
+import { PageHero, SectionHeading, ValueCard, NextStepBand, RelatedCards, StatBar, FeatureSplit, NarrativeSection, DarkBand, InlineList } from "@/components/page-parts"
 import { Faq } from "@/components/faq"
 import { Heart, Shield, Phone, MessageSquare, Clock, Users } from "lucide-react"
-
 
 const VALUES = [
   { icon: Shield, title: "HIPAA-Compliant", body: "End-to-end encrypted calls and messages. Business Associate Agreements (BAA) available on Professional and Enterprise plans." },
@@ -32,13 +31,62 @@ export default function HealthcarePage() {
         trustItems={["HIPAA-compliant", "BAA available", "STIR/SHAKEN", "Encrypted calls"]}
         primaryCta={{ label: "Start Free Trial", href: "/pricing" }}
         secondaryCta={{ label: "Talk to sales", href: "/contact" }}
+        image={{ alt: "Healthcare provider communications dashboard showing appointment reminders and patient call routing" }}
       />
+
+      {/* Stats bar */}
+      <StatBar stats={[
+        { value: "HIPAA", label: "Compliance standard", note: "BAA available on Pro & Enterprise" },
+        { value: "40%", label: "Fewer no-shows", note: "with automated SMS reminders" },
+        { value: "24/7", label: "After-hours routing", note: "on-call staff always reachable" },
+        { value: "Multi-site", label: "Location support", note: "one account, every location" },
+      ]} />
+
+      {/* Narrative */}
+      <NarrativeSection paragraphs={[
+        "A patient calls after hours for an urgent prescription refill. They get a generic voicemail. They go to urgent care instead.",
+        "Twiching routes after-hours calls to on-call staff, urgent lines, or pharmacy teams automatically — so patients get the care they need without flooding your main lines the next morning.",
+      ]} />
 
       {/* Value grid */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {VALUES.map((v) => <ValueCard key={v.title} icon={v.icon} title={v.title} body={v.body} />)}
         </div>
+      </section>
+
+      {/* Feature split 1 — Appointment SMS */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-100">
+        <FeatureSplit
+          eyebrow="Appointment reminders"
+          heading="Reduce no-shows by 40% with automated SMS reminders."
+          body="Twiching sends automated appointment reminders 24–48 hours before each visit. Patients reply CONFIRM or CANCEL directly — and your front desk sees every response in the dashboard without lifting the phone."
+          points={[
+            "Automated reminders triggered by your scheduling system",
+            "Two-way SMS — patients confirm or reschedule by replying",
+            "Reminder content fully customizable per appointment type",
+            "Responses logged to patient record via CRM sync",
+          ]}
+          cta={{ label: "Start Free Trial", href: "/pricing" }}
+          image={{ alt: "Appointment reminder SMS flow showing patient confirmation and dashboard update" }}
+        />
+      </section>
+
+      {/* Feature split 2 — HIPAA compliance (reversed) */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-100">
+        <FeatureSplit
+          eyebrow="HIPAA compliance"
+          heading="Encrypted calls. Secure voicemail. BAA included."
+          body="Every call and message on Twiching is encrypted in transit and at rest. Business Associate Agreements are available on Professional and Enterprise — giving your compliance team the documentation they need without a legal back-and-forth."
+          points={[
+            "End-to-end encrypted voice and SMS",
+            "Business Associate Agreement available on Pro & Enterprise",
+            "Secure voicemail with encrypted storage",
+            "Audit-ready call logs and recording exports",
+          ]}
+          image={{ alt: "HIPAA compliance checklist and encrypted call storage confirmation in Twiching" }}
+          reverse
+        />
       </section>
 
       {/* Use cases */}
@@ -60,6 +108,53 @@ export default function HealthcarePage() {
           ))}
         </div>
       </section>
+
+      {/* Inline checklist */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-100">
+        <SectionHeading eyebrow="Full capabilities" h2="Everything healthcare providers need from a phone system" />
+        <InlineList
+          items={[
+            "HIPAA-compliant calls and messaging — encrypted end to end",
+            "Business Associate Agreement (BAA) on Pro & Enterprise",
+            "Dedicated local or toll-free numbers per provider or department",
+            "Automated appointment SMS reminders with two-way replies",
+            "After-hours auto-attendant with on-call routing",
+            "Multi-location management from one admin portal",
+            "Prescription refill and lab result IVR flows",
+            "Secure voicemail with encrypted storage",
+            "Call recording for quality and compliance review",
+          ]}
+          image={{ alt: "Healthcare communications capabilities overview in Twiching" }}
+        />
+      </section>
+
+      {/* Dark band */}
+      <DarkBand>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <p className="text-[11px] font-mono font-bold tracking-[2px] uppercase text-gray-500 mb-3">Built for patient-first care</p>
+            <h2 className="text-3xl sm:text-4xl font-semibold text-white tracking-tight text-balance leading-tight mb-5">
+              HIPAA from day one.<br />No compliance team required.
+            </h2>
+            <p className="text-base text-gray-400 leading-relaxed max-w-lg">
+              Healthcare providers shouldn't spend billable hours configuring a phone system to meet compliance requirements. Twiching ships HIPAA-ready — encrypted calls, secure voicemail, BAA documentation — so you can focus on patients, not infrastructure.
+            </p>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            {[
+              { label: "HIPAA", note: "End-to-end encrypted" },
+              { label: "BAA", note: "Pro & Enterprise plans" },
+              { label: "−40%", note: "Fewer no-shows with SMS" },
+              { label: "24/7", note: "After-hours routing" },
+            ].map(({ label, note }) => (
+              <div key={label} className="p-5 rounded-xl border border-white/10 bg-white/5">
+                <p className="font-mono font-bold text-[20px] text-white mb-1">{label}</p>
+                <p className="font-mono text-[11px] text-gray-500">{note}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </DarkBand>
 
       <Faq items={FAQS} heading="Healthcare communications FAQ" />
 

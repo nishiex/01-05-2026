@@ -1,7 +1,7 @@
 "use client"
 
 import { PageLayout } from "@/components/page-layout"
-import { PageHero, SectionHeading, ValueCard, NextStepBand, RelatedCards } from "@/components/page-parts"
+import { PageHero, SectionHeading, ValueCard, NextStepBand, RelatedCards, StatBar, FeatureSplit, NarrativeSection, DarkBand, InlineList } from "@/components/page-parts"
 import { Faq } from "@/components/faq"
 import { Globe, Users, Phone, MessageSquare, BarChart2, Zap } from "lucide-react"
 
@@ -31,8 +31,24 @@ export default function RemoteTeamsPage() {
         trustItems={["Cloud-based", "Global numbers", "Team collaboration", "Real-time analytics"]}
         primaryCta={{ label: "Start Free Trial", href: "/pricing" }}
         secondaryCta={{ label: "Talk to sales", href: "/contact" }}
+        image={{ alt: "Remote team members collaborating via Twiching cloud calling on laptops and mobile devices" }}
       />
 
+      {/* Stats bar */}
+      <StatBar stats={[
+        { value: "0", label: "Hardware required", note: "browser and mobile app only" },
+        { value: "Global", label: "Number provisioning", note: "any country, any time zone" },
+        { value: "1 dashboard", label: "All channels", note: "calls, SMS, chat unified" },
+        { value: "Instant", label: "Team scaling", note: "add seats in seconds" },
+      ]} />
+
+      {/* Narrative */}
+      <NarrativeSection paragraphs={[
+        "Your team is spread across three time zones. Half are on laptops, the rest on mobiles. Everyone has a different personal number and a different messaging app.",
+        "Twiching gives every team member a single business number that works on any device — calls, SMS, and internal chat unified in one dashboard, from anywhere in the world.",
+      ]} />
+
+      {/* Value cards */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {VALUES.map((v) => (
@@ -41,6 +57,41 @@ export default function RemoteTeamsPage() {
         </div>
       </section>
 
+      {/* Feature split 1 — Cloud calling + no hardware */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-100">
+        <FeatureSplit
+          eyebrow="Cloud calling"
+          heading="Business numbers on every device. No hardware, no IT project."
+          body="Twiching runs in the browser and on the mobile app. Every team member gets a professional business number they can use to call and message from a laptop in a coffee shop or a phone in a different country — without a single desk phone or SIM card."
+          points={[
+            "Desktop app, mobile app, and browser — all included",
+            "Business number rings on all devices simultaneously",
+            "Calls transfer between devices mid-conversation",
+            "Local numbers available in 50+ countries",
+          ]}
+          cta={{ label: "Start Free Trial", href: "/pricing" }}
+          image={{ alt: "Remote team member making a business call on laptop with Twiching softphone" }}
+        />
+      </section>
+
+      {/* Feature split 2 — Team collaboration (reversed) */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-100">
+        <FeatureSplit
+          eyebrow="Team collaboration"
+          heading="Shared inbox. Internal notes. One team, any location."
+          body="Distributed teams lose context when conversations are siloed across personal phones. Twiching's shared inbox gives the whole team visibility into every customer conversation — with internal notes, assignments, and tags so nothing falls through the cracks."
+          points={[
+            "Shared team inbox for calls, SMS, and WhatsApp",
+            "Internal notes and conversation tagging",
+            "Assign conversations to team members",
+            "Real-time dashboards — see who's available across time zones",
+          ]}
+          image={{ alt: "Shared team inbox showing distributed team conversation assignments and internal notes" }}
+          reverse
+        />
+      </section>
+
+      {/* Use cases */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-100">
         <SectionHeading eyebrow="Use cases" h2="How remote teams use Twiching" />
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-2">
@@ -59,6 +110,53 @@ export default function RemoteTeamsPage() {
           ))}
         </div>
       </section>
+
+      {/* Inline checklist */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-100">
+        <SectionHeading eyebrow="Full capabilities" h2="Everything a remote team needs to stay connected" />
+        <InlineList
+          items={[
+            "Cloud calling — desktop, mobile, and browser apps included",
+            "Business numbers in 50+ countries",
+            "Shared team inbox for calls, SMS, and WhatsApp",
+            "Internal notes, tags, and conversation assignments",
+            "Call transfer between devices mid-conversation",
+            "Real-time availability dashboards across time zones",
+            "IVR and intelligent call routing — no hardware needed",
+            "Performance analytics: call volume, response time, agent activity",
+            "Add new team members and assign numbers in seconds",
+          ]}
+          image={{ alt: "Remote team communications capabilities overview in Twiching" }}
+        />
+      </section>
+
+      {/* Dark band */}
+      <DarkBand>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <p className="text-[11px] font-mono font-bold tracking-[2px] uppercase text-gray-500 mb-3">Built for distributed teams</p>
+            <h2 className="text-3xl sm:text-4xl font-semibold text-white tracking-tight text-balance leading-tight mb-5">
+              One platform.<br />Every device. Every time zone.
+            </h2>
+            <p className="text-base text-gray-400 leading-relaxed max-w-lg">
+              Remote teams don't need a phone system built for an office. Twiching is built cloud-first — professional numbers, shared inboxes, and real-time analytics that work the same whether your team is in the same building or on four different continents.
+            </p>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            {[
+              { label: "Cloud", note: "No hardware required" },
+              { label: "Global", note: "Numbers in 50+ countries" },
+              { label: "Unified", note: "Calls, SMS, chat in one view" },
+              { label: "Instant", note: "New seats in seconds" },
+            ].map(({ label, note }) => (
+              <div key={label} className="p-5 rounded-xl border border-white/10 bg-white/5">
+                <p className="font-mono font-bold text-[18px] text-white mb-1">{label}</p>
+                <p className="font-mono text-[11px] text-gray-500">{note}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </DarkBand>
 
       <Faq items={FAQS} heading="Remote teams FAQ" />
 

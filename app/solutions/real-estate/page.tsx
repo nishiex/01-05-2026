@@ -2,10 +2,9 @@
 
 import Image from "next/image"
 import { PageLayout } from "@/components/page-layout"
-import { PageHero, SectionHeading, ValueCard, NextStepBand, RelatedCards } from "@/components/page-parts"
+import { PageHero, SectionHeading, ValueCard, NextStepBand, RelatedCards, StatBar, FeatureSplit, NarrativeSection, DarkBand, InlineList } from "@/components/page-parts"
 import { Faq } from "@/components/faq"
 import { Home, Phone, MessageSquare, MapPin, UserCheck, PhoneCall } from "lucide-react"
-
 
 const VALUES = [
   { icon: Home, title: "Agent Virtual Numbers", body: "Every agent gets a dedicated local number for listings, marketing materials, and client calls — without using their personal mobile." },
@@ -36,15 +35,64 @@ export default function RealEstatePage() {
         image={{ src: "/images/real-estate-hero.jpg", alt: "Real estate agent using Twiching on a smartphone outside a property" }}
       />
 
+      {/* Stats bar */}
+      <StatBar stats={[
+        { value: "3×", label: "Higher answer rate", note: "with local area code numbers" },
+        { value: "Per-agent", label: "Dedicated numbers", note: "no personal mobile required" },
+        { value: "1 portal", label: "Brokerage management", note: "all agents, all numbers" },
+        { value: "Instant", label: "Number reassignment", note: "when agents leave or join" },
+      ]} />
+
+      {/* Narrative */}
+      <NarrativeSection paragraphs={[
+        "A buyer calls the yard sign number at 8pm. It rings the agent's personal mobile, which goes to voicemail. The buyer calls a competitor listing instead.",
+        "Twiching gives every agent a dedicated professional number. After-hours calls hear property details via IVR, can leave a voicemail, and get a transcription emailed to the agent by morning.",
+      ]} />
+
+      {/* Value cards */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {VALUES.map((v) => <ValueCard key={v.title} icon={v.icon} title={v.title} body={v.body} />)}
         </div>
       </section>
 
+      {/* Feature split 1 — Listing hotlines + lead tracking */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-100">
+        <FeatureSplit
+          eyebrow="Listing hotlines"
+          heading="Every listing gets its own number. Every call tracked."
+          body="Assign a unique phone number to each property. Callers hear price, square footage, and showing availability via IVR — then connect to the agent or leave a voicemail. Call analytics tell you exactly which listing and which channel drives the most enquiries."
+          points={[
+            "Unique number per listing — yard sign, portal, ad, or mailer",
+            "IVR plays property details, price, and availability automatically",
+            "Press 1 to connect to agent, press 2 to leave voicemail",
+            "Call analytics per number — see which channel converts best",
+          ]}
+          cta={{ label: "Start Free Trial", href: "/pricing" }}
+          image={{ alt: "Listing hotline call flow showing IVR property details and agent connection" }}
+        />
+      </section>
+
+      {/* Feature split 2 — Round-robin + brokerage management (reversed) */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-100">
+        <FeatureSplit
+          eyebrow="Brokerage management"
+          heading="One portal. Every agent. Every number."
+          body="Provision, manage, and reassign agent numbers from one brokerage-level dashboard. When an agent joins, assign a number in seconds. When they leave, the number stays with the brokerage and routes to whoever takes their desk."
+          points={[
+            "Provision local or toll-free numbers for each agent instantly",
+            "Round-robin routing distributes inbound leads fairly",
+            "Numbers stay with the brokerage — never with the agent",
+            "Broker-level call monitoring and performance dashboards",
+          ]}
+          image={{ alt: "Brokerage admin portal showing agent number management and round-robin routing" }}
+          reverse
+        />
+      </section>
+
+      {/* Use cases + sticky team photo — preserved from original */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-100">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-          {/* Left: heading + use-case cards */}
           <div>
             <SectionHeading eyebrow="Use cases" h2="How real estate teams use Twiching" />
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
@@ -64,7 +112,6 @@ export default function RealEstatePage() {
             </div>
           </div>
 
-          {/* Right: team photo */}
           <div className="lg:sticky lg:top-24">
             <div className="relative w-full aspect-[3/4] rounded-3xl overflow-hidden shadow-lg">
               <Image
@@ -74,7 +121,6 @@ export default function RealEstatePage() {
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
-              {/* Subtle caption chip */}
               <div className="absolute bottom-4 left-4 right-4 flex items-center gap-2 bg-white/90 backdrop-blur-sm rounded-xl px-4 py-3 shadow-sm">
                 <span className="inline-block w-2 h-2 rounded-full bg-accent flex-shrink-0" />
                 <p className="text-[12px] font-mono font-semibold text-gray-700">Brokerage command centre — all agents, one view</p>
@@ -83,6 +129,53 @@ export default function RealEstatePage() {
           </div>
         </div>
       </section>
+
+      {/* Inline checklist */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-100">
+        <SectionHeading eyebrow="Full capabilities" h2="Everything agents and brokerages need" />
+        <InlineList
+          items={[
+            "Dedicated local or toll-free number per agent",
+            "Unique numbers per listing for call source tracking",
+            "IVR property hotlines — details, price, and showing availability",
+            "Round-robin inbound lead distribution",
+            "Automated showing confirmation and reminder SMS",
+            "New listing blast SMS to opted-in buyer leads",
+            "After-hours IVR with voicemail transcription to email",
+            "Brokerage-level number management portal",
+            "Numbers stay with the brokerage when agents leave",
+          ]}
+          image={{ alt: "Real estate communications capabilities overview in Twiching" }}
+        />
+      </section>
+
+      {/* Dark band */}
+      <DarkBand>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <p className="text-[11px] font-mono font-bold tracking-[2px] uppercase text-gray-500 mb-3">Built for agents and brokerages</p>
+            <h2 className="text-3xl sm:text-4xl font-semibold text-white tracking-tight text-balance leading-tight mb-5">
+              Every lead captured.<br />Every call attributed.
+            </h2>
+            <p className="text-base text-gray-400 leading-relaxed max-w-lg">
+              Real estate is a game of response time and local trust. Twiching gives every agent a local number, routes every inbound lead to the right person in seconds, and tells you exactly which marketing channel — yard sign, portal, ad — is driving your calls.
+            </p>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            {[
+              { label: "3×", note: "Higher answer rate, local numbers" },
+              { label: "Per-agent", note: "Dedicated numbers" },
+              { label: "Round-robin", note: "Fair lead distribution" },
+              { label: "Attribution", note: "Track every call source" },
+            ].map(({ label, note }) => (
+              <div key={label} className="p-5 rounded-xl border border-white/10 bg-white/5">
+                <p className="font-mono font-bold text-[16px] text-white mb-1">{label}</p>
+                <p className="font-mono text-[11px] text-gray-500">{note}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </DarkBand>
 
       <Faq items={FAQS} heading="Real estate communications FAQ" variant="tinted" />
 

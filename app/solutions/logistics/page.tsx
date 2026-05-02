@@ -1,10 +1,9 @@
 "use client"
 
 import { PageLayout } from "@/components/page-layout"
-import { PageHero, SectionHeading, ValueCard, NextStepBand, RelatedCards } from "@/components/page-parts"
+import { PageHero, SectionHeading, ValueCard, NextStepBand, RelatedCards, StatBar, FeatureSplit, NarrativeSection, DarkBand, InlineList } from "@/components/page-parts"
 import { Faq } from "@/components/faq"
 import { Package, MessageSquare, Phone, MapPin, Clock, Users } from "lucide-react"
-
 
 const VALUES = [
   { icon: Package, title: "Driver Dispatch Lines", body: "Dedicated numbers for dispatch operations. Drivers call a single line; intelligent routing connects them to the available dispatcher instantly." },
@@ -32,14 +31,65 @@ export default function LogisticsPage() {
         trustItems={["Driver dispatch lines", "Delivery SMS", "API integration", "24/7 routing"]}
         primaryCta={{ label: "Start Free Trial", href: "/pricing" }}
         secondaryCta={{ label: "Talk to sales", href: "/contact" }}
+        image={{ alt: "Logistics operations dashboard showing driver dispatch lines and delivery SMS status" }}
       />
 
+      {/* Stats bar */}
+      <StatBar stats={[
+        { value: "−60%", label: "Missed delivery attempts", note: "with automated SMS updates" },
+        { value: "24/7", label: "Operations coverage", note: "night shift routing included" },
+        { value: "API", label: "Integration", note: "trigger SMS from any WMS or TMS" },
+        { value: "Fleet-wide", label: "Broadcast SMS", note: "reach every driver instantly" },
+      ]} />
+
+      {/* Narrative */}
+      <NarrativeSection paragraphs={[
+        "A driver arrives at the delivery address. Nobody's home. The package goes back to the depot. The customer calls your support line furious.",
+        "Twiching sends an automated SMS 30 minutes before arrival — customers prepare, answer rates improve, missed deliveries drop. No integration required beyond an API call.",
+      ]} />
+
+      {/* Value cards */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {VALUES.map((v) => <ValueCard key={v.title} icon={v.icon} title={v.title} body={v.body} />)}
         </div>
       </section>
 
+      {/* Feature split 1 — Delivery SMS */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-100">
+        <FeatureSplit
+          eyebrow="Delivery SMS notifications"
+          heading="Customers know when it's coming. Drivers make fewer second trips."
+          body="Trigger automated SMS notifications at every delivery milestone — out for delivery, 30 minutes away, delivered, or failed attempt. Recipients can reply with delivery instructions or reschedule without calling your support line."
+          points={[
+            "API-triggered SMS from any WMS, TMS, or route optimization system",
+            "Customizable message templates per delivery status",
+            "Two-way replies for delivery instructions or rescheduling",
+            "Branded sender number — customers recognize your company name",
+          ]}
+          cta={{ label: "Start Free Trial", href: "/pricing" }}
+          image={{ alt: "Delivery SMS notification flow showing out-for-delivery alert and customer reply" }}
+        />
+      </section>
+
+      {/* Feature split 2 — Dispatch communications (reversed) */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-100">
+        <FeatureSplit
+          eyebrow="Dispatch & fleet communications"
+          heading="Dispatchers reach any driver instantly. Fleet gets updates in one SMS."
+          body="Dedicated dispatch numbers route to the right driver or team in seconds. Need to change a route, announce a shift, or alert the whole fleet? Broadcast SMS reaches every driver simultaneously — without a group chat or personal phone numbers."
+          points={[
+            "Dedicated dispatch lines with intelligent driver routing",
+            "Fleet-wide broadcast SMS for shift changes and alerts",
+            "Drivers call out using company number — personal mobile never exposed",
+            "Regional local numbers for each depot — higher driver answer rates",
+          ]}
+          image={{ alt: "Fleet dispatch dashboard showing broadcast SMS and driver routing controls" }}
+          reverse
+        />
+      </section>
+
+      {/* Use cases */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-100">
         <SectionHeading eyebrow="Use cases" h2="How logistics teams use Twiching" />
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-2">
@@ -58,6 +108,53 @@ export default function LogisticsPage() {
           ))}
         </div>
       </section>
+
+      {/* Inline checklist */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-100">
+        <SectionHeading eyebrow="Full capabilities" h2="Everything logistics teams need to stay connected" />
+        <InlineList
+          items={[
+            "API-triggered delivery SMS at every shipment milestone",
+            "Two-way SMS replies for customer instructions and rescheduling",
+            "Dedicated dispatch lines with intelligent driver routing",
+            "Fleet-wide broadcast SMS for shift and route changes",
+            "Regional local numbers per depot — higher answer rates",
+            "Driver-to-customer calls masked behind company number",
+            "24/7 after-hours routing to on-call operations managers",
+            "Customer self-service IVR for shipment status enquiries",
+            "Per-depot number management from one admin portal",
+          ]}
+          image={{ alt: "Logistics communications capabilities overview in Twiching" }}
+        />
+      </section>
+
+      {/* Dark band */}
+      <DarkBand>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <p className="text-[11px] font-mono font-bold tracking-[2px] uppercase text-gray-500 mb-3">Built for last-mile operations</p>
+            <h2 className="text-3xl sm:text-4xl font-semibold text-white tracking-tight text-balance leading-tight mb-5">
+              Fewer missed deliveries.<br />Faster dispatch. Happier customers.
+            </h2>
+            <p className="text-base text-gray-400 leading-relaxed max-w-lg">
+              Logistics operations run on communication. Twiching gives dispatch teams instant reach to every driver, gives customers proactive delivery updates, and gives operations managers 24/7 visibility — all from one platform.
+            </p>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            {[
+              { label: "−60%", note: "Missed delivery attempts" },
+              { label: "API", note: "WMS / TMS integration" },
+              { label: "Broadcast", note: "Fleet-wide SMS alerts" },
+              { label: "24/7", note: "Operations routing" },
+            ].map(({ label, note }) => (
+              <div key={label} className="p-5 rounded-xl border border-white/10 bg-white/5">
+                <p className="font-mono font-bold text-[20px] text-white mb-1">{label}</p>
+                <p className="font-mono text-[11px] text-gray-500">{note}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </DarkBand>
 
       <Faq items={FAQS} heading="Logistics communications FAQ" />
 

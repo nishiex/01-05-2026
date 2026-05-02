@@ -1,6 +1,6 @@
 import { Metadata } from "next"
 import { PageLayout } from "@/components/page-layout"
-import { PageHero, SectionHeading, ValueCard, NextStepBand, RelatedCards } from "@/components/page-parts"
+import { PageHero, SectionHeading, ValueCard, NextStepBand, RelatedCards, StatBar, FeatureSplit, NarrativeSection, DarkBand, InlineList } from "@/components/page-parts"
 import { Faq } from "@/components/faq"
 import { Users, Eye, Mic, PhoneCall, BarChart2, Bell } from "lucide-react"
 
@@ -29,6 +29,8 @@ const FAQS = [
 export default function SupervisorPage() {
   return (
     <PageLayout>
+
+      {/* Hero — image placeholder right column */}
       <PageHero
         eyebrow="Features · Supervisor Tools"
         h1="Coach your team on every call, in real time"
@@ -36,14 +38,59 @@ export default function SupervisorPage() {
         trustItems={["Live monitoring", "Whisper coaching", "Real-time wallboards", "Agent scorecards"]}
         primaryCta={{ label: "Start Free Trial", href: "/pricing" }}
         secondaryCta={{ label: "See pricing", href: "/pricing" }}
+        image={{ alt: "Supervisor wallboard showing live agent calls and queue metrics" }}
       />
 
+      {/* Stats bar */}
+      <StatBar stats={[
+        { value: "0s", label: "Coaching delay", note: "whisper in real time" },
+        { value: "100%", label: "Call visibility", note: "every active call on one screen" },
+        { value: "1-click", label: "To monitor or barge", note: "from wallboard to call" },
+        { value: "Pro+", label: "Plan availability", note: "Professional & Enterprise" },
+      ]} />
+
+      {/* Value cards */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {VALUES.map((v) => <ValueCard key={v.title} icon={v.icon} title={v.title} body={v.body} />)}
         </div>
       </section>
 
+      {/* Feature split 1 — Live monitoring + wallboard */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-100">
+        <FeatureSplit
+          eyebrow="Real-time wallboard"
+          heading="Every agent. Every call. One screen."
+          body="The supervisor wallboard updates every second — agent status, queue depth, average wait time, and call volume in a single view. Spot a problem before it becomes a missed SLA."
+          points={[
+            "Live agent status: on call, available, wrap-up, or offline",
+            "Queue depth and average wait time updated every second",
+            "Click any active call to silently join as a monitor",
+            "Threshold alerts via SMS or email when KPIs breach limits",
+          ]}
+          cta={{ label: "See the wallboard in action", href: "/pricing" }}
+          image={{ alt: "Real-time supervisor wallboard with agent statuses and queue metrics" }}
+        />
+      </section>
+
+      {/* Feature split 2 — Whisper + barge (reversed) */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-100">
+        <FeatureSplit
+          eyebrow="Whisper & barge"
+          heading="Guide the call without the customer ever knowing"
+          body="Whisper coaching lets you speak directly to the agent while the customer hears nothing. When a call needs more than coaching, barge joins you as a full participant in one click."
+          points={[
+            "Whisper: audible to agent only — customer hears nothing",
+            "Barge: join as a full call participant instantly",
+            "Switch between monitor, whisper, and barge mid-call",
+            "Works on mobile app — supervise from anywhere",
+          ]}
+          image={{ alt: "Whisper coaching interface showing call controls for supervisor" }}
+          reverse
+        />
+      </section>
+
+      {/* How it works — 3 steps */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-100">
         <SectionHeading eyebrow="Supervisor workflow" h2="From wallboard to call — in three clicks" />
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-2">
@@ -60,6 +107,52 @@ export default function SupervisorPage() {
           ))}
         </div>
       </section>
+
+      {/* Inline checklist + image — full capability summary */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-100">
+        <SectionHeading eyebrow="Full capabilities" h2="Everything a supervisor needs, built in" />
+        <InlineList
+          items={[
+            "Silent call monitoring — invisible to agent and customer",
+            "Whisper coaching — agent only, customer hears nothing",
+            "Call barge — join as a full participant instantly",
+            "Switch between monitor, whisper, and barge mid-call",
+            "Real-time wallboard — all agents and queues on one screen",
+            "Per-agent scorecards: AHT, CSAT, FCR, QA score",
+            "Threshold alerts via SMS or email",
+            "Available on mobile app — supervise from anywhere",
+          ]}
+          image={{ alt: "Supervisor tools feature overview in Twiching dashboard" }}
+        />
+      </section>
+
+      {/* Dark band — supervision philosophy */}
+      <DarkBand>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <p className="text-[11px] font-mono font-bold tracking-[2px] uppercase text-gray-500 mb-3">Built for contact center supervisors</p>
+            <h2 className="text-3xl sm:text-4xl font-semibold text-white tracking-tight text-balance leading-tight mb-5">
+              Don't review yesterday's calls.<br />Fix today's calls as they happen.
+            </h2>
+            <p className="text-base text-gray-400 leading-relaxed max-w-lg">
+              Post-call QA tells you what went wrong after the damage is done. Twiching's supervisor tools put you inside every live conversation — so you can catch mistakes in real time, coach in the moment, and protect every customer interaction before it ends.
+            </p>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            {[
+              { label: "Monitor", note: "Silent — neither party knows" },
+              { label: "Whisper", note: "Agent only — customer unaware" },
+              { label: "Barge", note: "Full participant, one click" },
+              { label: "Wallboard", note: "Every call, every second" },
+            ].map(({ label, note }) => (
+              <div key={label} className="p-5 rounded-xl border border-white/10 bg-white/5">
+                <p className="font-mono font-bold text-[16px] text-white mb-1">{label}</p>
+                <p className="font-mono text-[11px] text-gray-500">{note}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </DarkBand>
 
       <Faq items={FAQS} heading="Supervisor Tools FAQ" />
 
