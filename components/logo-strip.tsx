@@ -13,8 +13,8 @@ const logos = [
   { name: "Infobip",      src: "https://cdn-ilegfjm.nitrocdn.com/kDlhiaoQNYImjijUkaQuvAdvaQsammmp/assets/images/optimized/rev-819ba67/www.acepeak.com/wp-content/uploads/2025/12/1-logo-infobip.webp" },
 ]
 
-// Duplicate for seamless loop
-const track = [...logos, ...logos]
+// Duplicate for seamless loop - quadruple for maximum stability on all screen sizes
+const track = [...logos, ...logos, ...logos, ...logos]
 
 export function LogoStrip() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -25,15 +25,50 @@ export function LogoStrip() {
     const trackElement = trackRef.current
     if (!container || !trackElement) return
 
-    // Calculate animation duration based on track width for seamless scrolling
-    const trackWidth = trackElement.offsetWidth
-    const containerWidth = container.offsetWidth
-    // Base speed: pixels per second (adjust for desired speed)
-    const pixelsPerSecond = 50
-    const duration = trackWidth / pixelsPerSecond
+    // Wait for images to load, then calculate
+    const img = trackElement.querySelectorAll('img')
+    let loadedCount = 0
+    const onImageLoad = () => {
+      loadedCount++
+      if (loadedCount === img.length) {
+        calculateAnimation()
+      }
+    }
 
-    // Apply dynamic duration to style
-    trackElement.style.setProperty("--scroll-duration", `${duration}s`)
+    // Fallback timeout if images don't load
+    const timeout = setTimeout(calculateAnimation, 500)
+
+    img.forEach(image => {
+      if (image.complete) {
+        loadedCount++
+      } else {
+        image.addEventListener('load', onImageLoad)
+        image.addEventListener('error', onImageLoad)
+      }
+    })
+
+    if (loadedCount === img.length) {
+      calculateAnimation()
+    }
+
+    function calculateAnimation() {
+      clearTimeout(timeout)
+      // Calculate animation based on first set of logos only
+      const firstLogoWidth = 110 // width in px
+      const gap = 48 // gap-12 = 3rem = 48px
+      const singleSetWidth = (firstLogoWidth + gap) * logos.length - gap
+      
+      // Duration: animate the distance of ONE full set of logos
+      // Speed: ~80px per second for smooth scrolling
+      const pixelsPerSecond = 80
+      const duration = singleSetWidth / pixelsPerSecond
+
+      console.log("[v0] Logo animation - Single set width:", singleSetWidth, "px, Duration:", duration.toFixed(2), "s")
+
+      // Set CSS variable for the animation distance
+      trackElement.style.setProperty("--scroll-distance", `-${singleSetWidth}px`)
+      trackElement.style.setProperty("--scroll-duration", `${duration}s`)
+    }
   }, [])
 
   return (
@@ -69,11 +104,12 @@ export function LogoStrip() {
 
       <style>{`
         :root {
-          --scroll-duration: 40s;
+          --scroll-duration: 8s;
+          --scroll-distance: -968px;
         }
         @keyframes logo-scroll {
           0%   { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
+          100% { transform: translateX(var(--scroll-distance)); }
         }
         .animate-logo-scroll {
           animation: logo-scroll var(--scroll-duration) linear infinite;
